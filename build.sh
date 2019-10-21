@@ -6,7 +6,7 @@ then
   exit 1
 fi
 
-DATA="/mnt/d/Steam/steamapps/common/Skyrim Special Edition/Data"
+DATA="~/.skyrim/Data"
 COMPILER="$DATA/../Papyrus Compiler/PapyrusCompiler.exe"
 BUILD="Temp-Build"
 SOURCE="$BUILD/Source"
