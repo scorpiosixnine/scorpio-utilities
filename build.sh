@@ -16,39 +16,44 @@ mkdir -p "$DATA/$BUILD"
 mkdir -p "$DATA/$SOURCE"
 mkdir -p "$DATA/$OUTPUT"
 
+
+# Copy source into temporary build location
 echo "Copying source"
-chmod -R u+rw Source
-
 cp Source/Scripts/* "$DATA/$SOURCE/"
-cp Source/Scripts/* "$DATA/Scripts/Source" # copy to old location too
-
 cp ${MODULE_NAME}.flg "$DATA/$SOURCE"
 
+# Copy Version info and utilities into the main Quest script
+echo "Updating Quest Script"
 QUEST="$DATA/$SOURCE/${MODULE_NAME}Quest.psc"
-
+printf "\n\n; Version info (automatically exported).\n" >> "$QUEST"
+printf "String property pName = \"$MODULE_NAME\" AutoReadOnly\n" >> "$QUEST"
 printf "int property pMajorVersion = $MAJOR AutoReadOnly\n" >> "$QUEST"
 printf "int property pMinorVersion = $MINOR AutoReadOnly\n" >> "$QUEST"
 printf "int property pPatchVersion = $PATCH AutoReadOnly\n" >> "$QUEST"
 printf "int property pBuildNumber = $BUILD_NO AutoReadOnly\n" >> "$QUEST"
 cat "scorpio-utilities/QuestUtilities.psc" >> "$QUEST"
 
-echo "Compiling"
+# Copy expanded source into Skyrim's source folder
 pushd "$DATA"
-ls "$SOURCE"
+cp "$SOURCE/"*.psc "Source/Scripts/"
 
-"$COMPILER" "$SOURCE" -all -o="$OUTPUT" -i="Scripts/Source" -i="Source/Scripts" -f="$SOURCE/${MODULE_NAME}.flg"
+# Compile
+echo "Compiling"
+"$COMPILER" "$SOURCE" -all -o="$OUTPUT" -i="$SOURCE" -i="Scripts/Source" -i="Source/Scripts" -f="$SOURCE/${MODULE_NAME}.flg"
 
+# Copy compiled output, and expanded source, into Skyrim script/source folders
 echo "Copying Output"
 cp "$OUTPUT/"*.pex "Scripts/"
-cp "$SOURCE/"*.psc "Source/Scripts/"
 popd
 
+# Touch the main module file, to update the modification date
 touch "$DATA/${MODULE_NAME}.esp"
 
+# Copy back the module file and meshes into our directory to make sure we've got the latest source
 cp "$DATA/${MODULE_NAME}.esp" .
-
 MESHES="Meshes/${MODULE_NAME}"
 mkdir -p "$MESHES"
 cp -r "$DATA/$MESHES/"*.nif "$MESHES"
 
+# Remove the temporary build folder
 rm -r "$DATA/$BUILD"

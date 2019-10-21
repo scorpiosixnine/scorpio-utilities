@@ -1,4 +1,7 @@
 
+; Utility Scripts
+; Automatically copied from scorpio-utilities (https://github.com/scorpiosixnine/scorpio-utilities).
+
 bool property pDebugMode auto
 
 function Log(String msg)
