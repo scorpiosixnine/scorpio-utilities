@@ -6,7 +6,9 @@ then
   exit 1
 fi
 
-DATA="~/.skyrim/Data"
+SKYRIM=$(readlink ~/.skyrim)
+DATA="$SKYRIM/Data"
+
 COMPILER="$DATA/../Papyrus Compiler/PapyrusCompiler.exe"
 BUILD="Temp-Build"
 SOURCE="$BUILD/Source"
