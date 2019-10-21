@@ -6,7 +6,8 @@ then
   exit 1
 fi
 
-DATA="/mnt/d/Steam/steamapps/common/Skyrim Special Edition/Data"
+SKYRIM=$(readlink ~/.skyrim)
+DATA="$SKYRIM/Data"
 
 echo "Pulling from Skyrim Data Folder"
 
