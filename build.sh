@@ -1,4 +1,11 @@
 #!/bin/bash
+
+if [[ "$MODULE_NAME" == "" ]]
+then
+  echo "ERROR: Module name not set."
+  exit 1
+fi
+
 DATA="/mnt/d/Steam/steamapps/common/Skyrim Special Edition/Data"
 COMPILER="$DATA/../Papyrus Compiler/PapyrusCompiler.exe"
 BUILD="Temp-Build"
