@@ -24,10 +24,13 @@ cp Source/Scripts/* "$DATA/Scripts/Source" # copy to old location too
 
 cp ${MODULE_NAME}.flg "$DATA/$SOURCE"
 
-printf "int property pMajorVersion = $MAJOR AutoReadOnly\n" >> "$DATA/$SOURCE/${MODULE_NAME}Quest.psc"
-printf "int property pMinorVersion = $MINOR AutoReadOnly\n" >> "$DATA/$SOURCE/${MODULE_NAME}Quest.psc"
-printf "int property pPatchVersion = $PATCH AutoReadOnly\n" >> "$DATA/$SOURCE/${MODULE_NAME}Quest.psc"
-printf "int property pBuildNumber = $BUILD_NO AutoReadOnly\n" >> "$DATA/$SOURCE/${MODULE_NAME}Quest.psc"
+QUEST="$DATA/$SOURCE/${MODULE_NAME}Quest.psc"
+
+printf "int property pMajorVersion = $MAJOR AutoReadOnly\n" >> "$QUEST"
+printf "int property pMinorVersion = $MINOR AutoReadOnly\n" >> "$QUEST"
+printf "int property pPatchVersion = $PATCH AutoReadOnly\n" >> "$QUEST"
+printf "int property pBuildNumber = $BUILD_NO AutoReadOnly\n" >> "$QUEST"
+cat "scorpio-utilities/QuestUtilities.psc" >> "$QUEST"
 
 echo "Compiling"
 pushd "$DATA"
