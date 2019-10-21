@@ -17,31 +17,30 @@ chmod -R u+rw Source
 cp Source/Scripts/* "$DATA/$SOURCE/"
 cp Source/Scripts/* "$DATA/Scripts/Source" # copy to old location too
 
-cp Smalls.flg "$DATA/$SOURCE"
+cp ${MODULE_NAME}.flg "$DATA/$SOURCE"
 
-printf "int property pMajorVersion = $MAJOR AutoReadOnly\n" >> "$DATA/$SOURCE/SmallsQuest.psc"
-printf "int property pMinorVersion = $MINOR AutoReadOnly\n" >> "$DATA/$SOURCE/SmallsQuest.psc"
-printf "int property pPatchVersion = $PATCH AutoReadOnly\n" >> "$DATA/$SOURCE/SmallsQuest.psc"
-printf "int property pBuildNumber = $BUILD_NO AutoReadOnly\n" >> "$DATA/$SOURCE/SmallsQuest.psc"
+printf "int property pMajorVersion = $MAJOR AutoReadOnly\n" >> "$DATA/$SOURCE/${MODULE_NAME}Quest.psc"
+printf "int property pMinorVersion = $MINOR AutoReadOnly\n" >> "$DATA/$SOURCE/${MODULE_NAME}Quest.psc"
+printf "int property pPatchVersion = $PATCH AutoReadOnly\n" >> "$DATA/$SOURCE/${MODULE_NAME}Quest.psc"
+printf "int property pBuildNumber = $BUILD_NO AutoReadOnly\n" >> "$DATA/$SOURCE/${MODULE_NAME}Quest.psc"
 
 echo "Compiling"
 pushd "$DATA"
 ls "$SOURCE"
 
-"$COMPILER" "$SOURCE" -all -o="$OUTPUT" -i="Scripts/Source" -i="Source/Scripts" -f="$SOURCE/Smalls.flg"
+"$COMPILER" "$SOURCE" -all -o="$OUTPUT" -i="Scripts/Source" -i="Source/Scripts" -f="$SOURCE/${MODULE_NAME}.flg"
 
 echo "Copying Output"
 cp "$OUTPUT/"*.pex "Scripts/"
 cp "$SOURCE/"*.psc "Source/Scripts/"
 popd
 
-touch "$DATA/Smalls.esp"
-touch "$DATA/Smalls+"*.esp
+touch "$DATA/${MODULE_NAME}.esp"
 
-cp "$DATA/Smalls.esp" .
-cp "$DATA/Smalls+"*.esp .
+cp "$DATA/${MODULE_NAME}.esp" .
 
-mkdir -p meshes/armor
-cp -r "$DATA/meshes/armor/Smalls+"*/*.nif meshes/armor
+MESHES="Meshes/${MODULE_NAME}"
+mkdir -p "$MESHES"
+cp -r "$DATA/$MESHES/"*.nif "$MESHES"
 
 rm -r "$DATA/$BUILD"
