@@ -44,16 +44,16 @@ echo "Compiling"
 # Copy compiled output, and expanded source, into Skyrim script/source folders
 echo "Copying Output"
 cp "$OUTPUT/"*.pex "Scripts/"
-popd
+popd > /dev/null
 
 # Touch the main module file, to update the modification date
 touch "$DATA/${MODULE_NAME}.esp"
 
 # Copy back the module file and meshes into our directory to make sure we've got the latest source
 cp "$DATA/${MODULE_NAME}.esp" .
+MESHES="Meshes/${MODULE_NAME}"
 if [[ -e "$DATA/$MESHES" ]]
 then
-  MESHES="Meshes/${MODULE_NAME}"
   mkdir -p "$MESHES"
   cp -r "$DATA/$MESHES/"*.nif "$MESHES"
 fi
