@@ -12,8 +12,6 @@ BUILD="Temp-Build"
 SOURCE="$BUILD/Source"
 OUTPUT="$BUILD/Output"
 
-source ./version.sh
-
 mkdir -p "$DATA/$BUILD"
 mkdir -p "$DATA/$SOURCE"
 mkdir -p "$DATA/$OUTPUT"
