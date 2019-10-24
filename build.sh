@@ -15,6 +15,9 @@ fi
 DATA="$SKYRIM_HOME/Data"
 
 COMPILER="$DATA/../Papyrus Compiler/PapyrusCompiler.exe"
+VORTEX="/mnt/c/Users/Sam Deane/AppData/Roaming/Vortex"
+SKSE="$VORTEX/skyrimse/mods/skse64_2_00_16/Scripts/Source"
+SKYUI_SDK="\\Mac\Dropbox\Games\Skyrim\Development\SkyUI_5.1_SDK\Scripts\Source"
 BUILD="Temp-Build"
 SOURCE="$BUILD/Source"
 OUTPUT="$BUILD/Output"
@@ -23,6 +26,9 @@ mkdir -p "$DATA/$BUILD"
 mkdir -p "$DATA/$SOURCE"
 mkdir -p "$DATA/$OUTPUT"
 
+# Copy required SDK sources so that the compiler can use them
+cp sdks/skyui/*.psc "$DATA/Source/Scripts"
+cp sdks/skse/*.psc "$DATA/Source/Scripts"
 
 # Copy source into temporary build location
 echo "Copying source"

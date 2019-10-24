@@ -6,8 +6,14 @@ then
   exit 1
 fi
 
-SKYRIM=$(readlink ~/.skyrim)
-DATA="$SKYRIM/Data"
+
+if [[ "$SKYRIM_HOME" == "" ]]
+then
+  echo "ERROR: Skyrim location name not set."
+  exit 1
+fi
+
+DATA="$SKYRIM_HOME/Data"
 
 echo "Pushing to Skyrim Data Folder"
 
