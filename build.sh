@@ -16,8 +16,6 @@ DATA="$SKYRIM_HOME/Data"
 
 COMPILER="$DATA/../Papyrus Compiler/PapyrusCompiler.exe"
 VORTEX="/mnt/c/Users/Sam Deane/AppData/Roaming/Vortex"
-SKSE="$VORTEX/skyrimse/mods/skse64_2_00_16/Scripts/Source"
-SKYUI_SDK="\\Mac\Dropbox\Games\Skyrim\Development\SkyUI_5.1_SDK\Scripts\Source"
 BUILD="Temp-Build"
 SOURCE="$BUILD/Source"
 OUTPUT="$BUILD/Output"
@@ -47,7 +45,7 @@ printf "int property pBuildNumber = $BUILD_NO AutoReadOnly\n" >> "$QUEST"
 cat "scorpio-utilities/QuestUtilities.psc" >> "$QUEST"
 
 # Copy expanded source into Skyrim's source folder
-pushd "$DATA"
+pushd "$DATA" > /dev/null
 cp "$SOURCE/"*.psc "Source/Scripts/"
 
 # Compile
