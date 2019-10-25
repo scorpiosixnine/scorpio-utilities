@@ -9,22 +9,22 @@ function Log(String msg)
 endFunction
 
 function Trace(String msg)
-  Debug.Trace(msg)
+  Debug.Trace(pName + ": " + msg)
 endfunction
 
 function Debug(String msg)
   if pDebugMode
-	   Debug.Notification("debug: " + msg)
+	   Debug.Notification(pName + ": " + msg)
    else
-     Debug.Trace(msg)
+		 Debug.Trace(pName + ": " + msg)
   endif
 endFunction
 
 function Warning(String msg)
   if pDebugMode
-      Debug.Notification("warning: " + msg)
+      Debug.Notification(pName + " warning: " + msg)
    else
-     Debug.Trace("warning: " + msg)
+     Debug.Trace(pName + " warning: " + msg)
   endif
 endFunction
 
