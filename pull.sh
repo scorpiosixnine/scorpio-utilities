@@ -36,11 +36,7 @@ function copyKind {
   if ls "$DATA/$1/$2"*.$3 1> /dev/null 2>&1
   then
     mkdir -p "$1"
-    P=("$DATA/$1/$2"*.$3) || ""
-    for f in "$P"
-    do
-      cp -r "$f" "$1/"
-    done
+    cp "$DATA/$1/$2"*.$3 "$1/"
   fi
 }
 
