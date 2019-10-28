@@ -28,7 +28,7 @@ function copyFolder {
   if ls "$DATA/$1/$2"*/ 1> /dev/null 2>&1
   then
     mkdir -p "$1"
-    cp -r "$DATA/$1/$2"*/* "$1/"
+    cp -r "$DATA/$1/$2"*/ "$1/"
   fi
 }
 
@@ -54,6 +54,8 @@ copyFolder "CalienteTools/BodySlide/ShapeData" "$MODULE_NAME"
 copyFolder "Meshes" "$MODULE_NAME"
 # if the module name is X+Y, copy meshes from `Meshes/X/Y` as well as `Meshes/X+Y`.
 expanded=${MODULE_NAME/+/\/}
-copyFolder "Meshes" "$MODULE_NAME"
+base=$(basename -- $expanded)
+sub=$(dirname -- $expanded)
+copyFolder "Meshes/$sub" "$base"
 
 echo "Done."
