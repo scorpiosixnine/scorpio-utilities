@@ -50,11 +50,14 @@ mkdir -p Scripts
 
 copyKind "." "$MODULE_NAME" "esp"
 
-copyPattern "Source/Scripts" "$MODULE_NAME"
-copyFolder "Meshes" "$MODULE_NAME"
+copyKind "Source/Scripts" "$MODULE_NAME" "psc"
 copyKind "CalienteTools/Bodyslide/SliderSets" "$MODULE_NAME" "osp"
 copyKind "CalienteTools/Bodyslide/SliderGroups" "$MODULE_NAME" "xml"
 copyFolder "CalienteTools/BodySlide/ShapeData" "$MODULE_NAME"
 
+copyFolder "Meshes" "$MODULE_NAME"
+# if the module name is X+Y, copy meshes from `Meshes/X/Y` as well as `Meshes/X+Y`.
+expanded=${MODULE_NAME/+/\/}
+copyFolder "Meshes" "$MODULE_NAME"
 
 echo "Done."
