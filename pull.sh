@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 if [[ "$MODULE_NAME" == "" ]]
 then
   echo "ERROR: Module name not set."
@@ -14,41 +15,46 @@ fi
 
 DATA="$SKYRIM_HOME/Data"
 
+
+function copyPattern {
+  if [[ -e "$DATA/$1/"*$2* ]]
+  then
+    mkdir -p "$1"
+    cp "$DATA/$1/"*$2* "$1/"
+  fi
+}
+
+function copyFolder {
+  if ls "$DATA/$1/$2"*/ 1> /dev/null 2>&1
+  then
+    mkdir -p "$1"
+    cp -r "$DATA/$1/$2"*/* "$1/"
+  fi
+}
+
+function copyKind {
+  if ls "$DATA/$1/$2"*.$3 1> /dev/null 2>&1
+  then
+    mkdir -p "$1"
+    P=("$DATA/$1/$2"*.$3) || ""
+    for f in "$P"
+    do
+      cp -r "$f" "$1/"
+    done
+  fi
+}
+
 echo "Pulling from Skyrim Data Folder"
 
-mkdir -p Source/Scripts
 mkdir -p Scripts
-mkdir -p Meshes/$MODULE_NAME
-mkdir -p CalienteTools/Bodyslide/SliderSets/
-mkdir -p CalienteTools/Bodyslide/SliderGroups/
-mkdir -p CalienteTools/Bodyslide/ShapeData/$MODULE_NAME/
 
-cp "$DATA/$MODULE_NAME.esp" .
+copyKind "." "$MODULE_NAME" "esp"
 
-if [[ -e "$DATA/Source/Scripts/"*$MODULE_NAME* ]]
-then
-  cp "$DATA/Source/Scripts/"*$MODULE_NAME* Source/Scripts/
-fi
-
-if [[ -e "$DATA/Meshes/$MODULE_NAME/" ]]
-then
-  cp -r "$DATA/Meshes/$MODULE_NAME" Meshes/
-fi
-
-if [[ -e "$DATA/CalienteTools/Bodyslide/SliderSets/$MODULE_NAME.osp" ]]
-then
-  cp -r "$DATA/CalienteTools/Bodyslide/SliderSets/$MODULE_NAME.osp" "CalienteTools/Bodyslide/SliderSets/"
-fi
-
-if [[ -e "$DATA/CalienteTools/Bodyslide/SliderGroups/$MODULE_NAME.xml" ]]
-then
-  cp -r "$DATA/CalienteTools/Bodyslide/SliderGroups/$MODULE_NAME.xml" "CalienteTools/Bodyslide/SliderGroups/"
-fi
-
-if [[ -e "$DATA/CalienteTools/Bodyslide/ShapeData/$MODULE_NAME/" ]]
-then
-  cp -r "$DATA/CalienteTools/Bodyslide/ShapeData/$MODULE_NAME/"* "CalienteTools/Bodyslide/ShapeData/$MODULE_NAME/"
-fi
+copyPattern "Source/Scripts" "$MODULE_NAME"
+copyFolder "Meshes" "$MODULE_NAME"
+copyKind "CalienteTools/Bodyslide/SliderSets" "$MODULE_NAME" "osp"
+copyKind "CalienteTools/Bodyslide/SliderGroups" "$MODULE_NAME" "xml"
+copyFolder "CalienteTools/BodySlide/ShapeData" "$MODULE_NAME"
 
 
 echo "Done."
