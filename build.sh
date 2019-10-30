@@ -50,7 +50,7 @@ cp "$SOURCE/"*.psc "Source/Scripts/"
 
 # Compile
 echo "Compiling"
-"$COMPILER" "$SOURCE" -all -o="$OUTPUT" -i="$SOURCE" -i="Scripts/Source" -i="Source/Scripts" -f="$SOURCE/${MODULE_NAME}.flg"
+"$COMPILER" "$SOURCE" -all -o="$OUTPUT" -i="$SOURCE" -i="Scripts/Source" -i="Source/Scripts" -f="$SOURCE/${MODULE_NAME}.flg" 2> "$OUTPUT/compile.log"
 COMPILE_RESULT=$?
 
 # Copy compiled output, and expanded source, into Skyrim script/source folders
@@ -70,14 +70,15 @@ then
   cp -r "$DATA/$MESHES/"*.nif "$MESHES"
 fi
 
-# Remove the temporary build folder
-rm -r "$DATA/$BUILD"
+printf "\nDone building $MODULE_NAME $MAJOR.$MINOR.$PATCH ($BUILD_NO).\n\n"
 
-printf "\nDone building $MODULE_NAME $MAJOR.$MINOR.$PATCH ($BUILD_NO)."
-
-if [[ $COMPILE_RESULT != 0 ]]
+if [[ $COMPILE_RESULT == 0 ]]
 then
-  echo "Build failed."
+  printf "BUILD SUCCEEDED.\n\n"
+else
+  printf "BUILD FAILED.\n\n"
+  cat "$DATA/$OUTPUT/compile.log"
 fi
 
-echo ""
+# Remove the temporary build folder
+rm -r "$DATA/$BUILD"
