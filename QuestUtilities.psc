@@ -9,13 +9,13 @@ function Log(String msg)
 endFunction
 
 function Trace(String msg)
-  Debug.Trace(pName + ": " + msg)
+	if pDebugMode
+  	Debug.Trace(pName + ": " + msg)
+	endif
 endfunction
 
 function Debug(String msg)
   if pDebugMode
-	   Debug.Notification(pName + ": " + msg)
-   else
 		 Debug.Trace(pName + ": " + msg)
   endif
 endFunction
