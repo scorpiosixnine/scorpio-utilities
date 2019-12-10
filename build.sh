@@ -44,6 +44,11 @@ printf "int property pPatchVersion = $PATCH AutoReadOnly\n" >> "$QUEST"
 printf "int property pBuildNumber = $BUILD_NO AutoReadOnly\n" >> "$QUEST"
 cat "scorpio-utilities/QuestUtilities.psc" >> "$QUEST"
 
+# Copy utilities into the main Config script
+echo "Updating Config Script"
+CONFIG="$DATA/$SOURCE/${MODULE_NAME}Config.psc"
+cat "scorpio-utilities/ConfigUtilities.psc" >> "$CONFIG"
+
 # Copy expanded source into Skyrim's source folder
 pushd "$DATA" > /dev/null
 cp "$SOURCE/"*.psc "Source/Scripts/"
