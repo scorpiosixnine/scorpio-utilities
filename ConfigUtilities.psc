@@ -54,8 +54,9 @@ event OnOptionSelect(int option)
   n = 0
   while(n < _buttonCount)
     if option == _buttons[n]
-      ButtonClicked(n, _buttonTags[n])
+      ButtonClicked(n, _buttonTags[n], option)
     endif
+    n += 1
   endWhile
 endEvent
 
@@ -65,6 +66,7 @@ event OnOptionHighlight(int option)
     if option == _buttons[n]
       SetInfoText(_buttonInfos[n])
     endif
+    n += 1
   endWhile
 endEvent
 
@@ -89,10 +91,16 @@ endFunction
 Bool function UpdateStandardToggle(String identifier, bool value, int tag)
   if identifier == "Debugging"
     pQuest.pDebugMode = value
-    return true
+  elseif identifier == "Enabled"
+    if pQuest.pEnabled != value
+      pQuest.pEnabled = value
+      pQuest.UpdatedEnabled()
+    endif
+  else
+    return false
   endif
 
-  return false
+  return true
 endFunction
 
 
