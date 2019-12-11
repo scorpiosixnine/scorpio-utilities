@@ -1,6 +1,35 @@
 ; Utility Scripts
 ; Automatically copied from scorpio-utilities (https://github.com/scorpiosixnine/scorpio-utilities).
 
+
+function ResetOptions()
+  ResetToggles()
+  ResetMenus()
+  ResetButtons()
+endFunction
+
+int[] _buttons
+String[] _buttonInfos
+int[] _buttonTags
+
+int _buttonCount = 0
+
+function ResetButtons()
+  _buttons = new int[100]
+  _buttonInfos = new String[100]
+  _buttonTags = new int[100]
+  _buttonCount = 0
+endFunction
+
+function SetupButton(String name, String info, int tag = 0)
+  if _buttonCount < _buttons.Length
+    _buttons[_buttonCount] = AddTextOption("", name)
+    _buttonInfos[_buttonCount] = info
+    _buttonTags[_buttonCount] = tag
+    _buttonCount += 1
+  endif
+endFunction
+
 int[] _toggles
 bool[] _toggleValues
 int[] _toggleTags
@@ -14,16 +43,30 @@ event OnOptionSelect(int option)
       bool newValue = !_toggleValues[n]
       _toggleValues[n] = newValue
       SetToggleOptionValue(_toggles[n], newValue)
-      UpdateToggle(_toggleIDs[n], newValue, _toggleTags[n])
+      string identifier = _toggleIDs[n]
+      int tag = _toggleTags[n]
+      if !UpdateStandardToggle(identifier, newValue, tag)
+        UpdateToggle(identifier, newValue, tag)
+      endif
     endif
     n += 1
   endWhile
+  n = 0
+  while(n < _buttonCount)
+    if option == _buttons[n]
+      ButtonClicked(n, _buttonTags[n])
+    endif
+  endWhile
 endEvent
 
-function ResetOptions()
-  ResetToggles()
-  ResetMenus()
-endFunction
+event OnOptionHighlight(int option)
+  int n = 0
+  while(n < _buttonCount)
+    if option == _buttons[n]
+      SetInfoText(_buttonInfos[n])
+    endif
+  endWhile
+endEvent
 
 function ResetToggles()
   _toggles = new int[100]
