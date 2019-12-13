@@ -28,8 +28,8 @@ cp "$DATA/$MODULE_NAME.esp" "$FOLDER/$MODULE_NAME/"
 cp -r Source/Scripts "$FOLDER/$MODULE_NAME/Source/Scripts"
 
 # grab substituted source directly from the data folder
-cp "$DATA/Source/Scripts/$MODULE_NAMEQuest.psc" "$FOLDER/$MODULE_NAME/Source/Scripts/"
-cp "$DATA/Source/Scripts/$MODULE_NAMEConfig.psc" "$FOLDER/$MODULE_NAME/Source/Scripts/"
+cp "$DATA/Source/Scripts/${MODULE_NAME}Quest.psc" "$FOLDER/$MODULE_NAME/Source/Scripts/"
+cp "$DATA/Source/Scripts/${MODULE_NAME}Config.psc" "$FOLDER/$MODULE_NAME/Source/Scripts/"
 
 mkdir -p "$FOLDER/$MODULE_NAME/Scripts"
 for f in "$FOLDER/$MODULE_NAME/Source/Scripts/"*
