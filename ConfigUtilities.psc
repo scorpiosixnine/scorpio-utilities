@@ -19,9 +19,9 @@ int[] _buttonTags
 int _buttonCount = 0
 
 function ResetButtons()
-  _buttons = new int[100]
-  _buttonInfos = new String[100]
-  _buttonTags = new int[100]
+  _buttons = new int[127]
+  _buttonInfos = new String[127]
+  _buttonTags = new int[127]
   _buttonCount = 0
 endFunction
 
@@ -75,10 +75,10 @@ event OnOptionHighlight(int option)
 endEvent
 
 function ResetToggles()
-  _toggles = new int[100]
-  _toggleValues = new bool[100]
-  _toggleTags = new int[100]
-  _toggleIDs = new String[100]
+  _toggles = new int[127]
+  _toggleValues = new bool[127]
+  _toggleTags = new int[127]
+  _toggleIDs = new String[127]
   _toggleCount = 0
 endFunction
 
@@ -89,6 +89,8 @@ function SetupToggle(String identifier, String name, bool initialState, int tag 
     _toggleIDs[_toggleCount] = identifier
     _toggleTags[_toggleCount] = tag
     _toggleCount += 1
+  else
+    pQuest.Trace("run out of toggles")
   endif
 endFunction
 
@@ -151,9 +153,9 @@ event OnOptionMenuAccept(int option, int value)
 endEvent
 
 function ResetMenus()
-  _menus = new int[100]
-  _menuValues = new int[100]
-  _menuTags = new int[100]
+  _menus = new int[127]
+  _menuValues = new int[127]
+  _menuTags = new int[127]
   _menuCount = 0
 endFunction
 
