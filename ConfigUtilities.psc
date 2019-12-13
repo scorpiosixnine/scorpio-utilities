@@ -2,7 +2,11 @@
 ; Automatically copied from scorpio-utilities (https://github.com/scorpiosixnine/scorpio-utilities).
 
 
-function ResetOptions()
+int function GetVersion()
+  return pQuest.pBuildNumber
+endFunction
+
+function ConfigResetOptions()
   ResetToggles()
   ResetMenus()
   ResetButtons()
@@ -21,9 +25,9 @@ function ResetButtons()
   _buttonCount = 0
 endFunction
 
-function SetupButton(String name, String info, int tag = 0)
+function SetupButton(String label, String name, String info, int tag = 0)
   if _buttonCount < _buttons.Length
-    _buttons[_buttonCount] = AddTextOption("", name)
+    _buttons[_buttonCount] = AddTextOption(label, name)
     _buttonInfos[_buttonCount] = info
     _buttonTags[_buttonCount] = tag
     _buttonCount += 1
@@ -46,7 +50,7 @@ event OnOptionSelect(int option)
       string identifier = _toggleIDs[n]
       int tag = _toggleTags[n]
       if !UpdateStandardToggle(identifier, newValue, tag)
-        UpdateToggle(identifier, newValue, tag)
+        ConfigToggleChanged(identifier, newValue, tag)
       endif
     endif
     n += 1
@@ -54,7 +58,7 @@ event OnOptionSelect(int option)
   n = 0
   while(n < _buttonCount)
     if option == _buttons[n]
-      ButtonClicked(n, _buttonTags[n], option)
+      ConfigButtonClicked(n, _buttonTags[n], option)
     endif
     n += 1
   endWhile
@@ -86,6 +90,14 @@ function SetupToggle(String identifier, String name, bool initialState, int tag 
     _toggleTags[_toggleCount] = tag
     _toggleCount += 1
   endif
+endFunction
+
+function SetupToggles(String identifier, int count, String[] names, bool[] values)
+  int n = 0
+  while(n < count)
+    SetupToggle(identifier, names[n], values[n], n)
+    n += 1
+  endWhile
 endFunction
 
 Bool function UpdateStandardToggle(String identifier, bool value, int tag)
@@ -134,7 +146,7 @@ event OnOptionMenuAccept(int option, int value)
   if index != -1
     _menuValues[index] = value
     SetMenuOptionValue(option, _kinds[value])
-    MenuChanged(index, _menuTags[index], value)
+    ConfigMenuChanged(index, _menuTags[index], value)
     endif
 endEvent
 
