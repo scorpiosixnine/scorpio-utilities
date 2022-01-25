@@ -50,7 +50,7 @@ cat "scorpio-utilities/ConfigUtilities.psc" >> "$CONFIG"
 # Compile
 echo "Compiling $SOURCE to $OUTPUT"
 
-"$COMPILER" "$SOURCE" -a -o="$OUTPUT" -i="$SOURCE;sdks/skyui/dist/Data/Scripts/Headers;sdks/skse64/scripts/modified;sdks/skyrim-sdk/Source/Scripts" -f="$SOURCE/${MODULE_NAME}.flg" 2> "$OUTPUT/compile.log"
+"$COMPILER" "$SOURCE" -a -o="$OUTPUT" -i="$SOURCE;$SDKS" -f="$SOURCE/${MODULE_NAME}.flg" 2> "$OUTPUT/compile.log"
 COMPILE_RESULT=$?
 
 # Copy expanded source into Skyrim's source folder
