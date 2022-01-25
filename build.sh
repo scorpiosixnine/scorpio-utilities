@@ -53,6 +53,14 @@ echo "Compiling $SOURCE to $OUTPUT"
 "$COMPILER" "$SOURCE" -a -o="$OUTPUT" -i="$SOURCE;$SDKS" -f="$SOURCE/${MODULE_NAME}.flg" 2> "$OUTPUT/compile.log"
 COMPILE_RESULT=$?
 
+
+if [[ $COMPILE_RESULT != 0 ]]
+then
+  printf "BUILD FAILED.\n\n"
+  cat "$OUTPUT/compile.log"
+  exit $COMPILE_RESULT
+fi
+
 # Copy expanded source into Skyrim's source folder
 cp "$SOURCE/"*.psc "$DATA/Source/Scripts/"
 
@@ -74,13 +82,7 @@ fi
 
 printf "\nDone building $MODULE_NAME $MAJOR.$MINOR.$PATCH ($BUILD_NO).\n\n"
 
-if [[ $COMPILE_RESULT == 0 ]]
-then
-  printf "BUILD SUCCEEDED.\n\n"
-else
-  printf "BUILD FAILED.\n\n"
-  cat "$DATA/$OUTPUT/compile.log"
-fi
+printf "BUILD SUCCEEDED.\n\n"
 
 # Remove the temporary build folder
 rm -r "$BUILD"
