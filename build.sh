@@ -58,8 +58,7 @@ cp "$SOURCE/"*.psc "$DATA/Source/Scripts/"
 
 # Copy compiled output into Skyrim Scripts folders
 echo "Copying Output"
-cp "$OUTPUT/"*.pex "Scripts/"
-popd > /dev/null
+cp "$OUTPUT/"*.pex "$DATA/Scripts/"
 
 # Touch the main module file, to update the modification date
 touch "$DATA/${MODULE_NAME}.esp"
