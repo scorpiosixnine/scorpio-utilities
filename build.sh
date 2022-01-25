@@ -17,8 +17,9 @@ DATA="$SKYRIM_HOME/Data"
 
 COMPILER="$DATA/../Papyrus Compiler/PapyrusCompiler.exe"
 VORTEX="/mnt/c/Users/Sam Deane/AppData/Roaming/Vortex"
-BUILD="Temp-Build"
+BUILD=".build"
 SOURCE="$BUILD/Source"
+CONTENT="Content"
 DEPENDENCIES="$BUILD/Dependencies"
 OUTPUT="$BUILD/Output"
 
@@ -64,6 +65,9 @@ fi
 # Copy expanded source into Skyrim's source folder
 cp "$SOURCE/"*.psc "$DATA/Source/Scripts/"
 
+# Copy other content info Skyrim's data folder
+cp "$CONTENT"/* "$DATA/"
+
 # Copy compiled output into Skyrim Scripts folders
 echo "Copying Output"
 cp "$OUTPUT/"*.pex "$DATA/Scripts/"
@@ -85,4 +89,4 @@ printf "\nDone building $MODULE_NAME $MAJOR.$MINOR.$PATCH ($BUILD_NO).\n\n"
 printf "BUILD SUCCEEDED.\n\n"
 
 # Remove the temporary build folder
-rm -r "$BUILD"
+#rm -r "$BUILD"
