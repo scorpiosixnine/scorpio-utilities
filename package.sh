@@ -32,4 +32,4 @@ cd "Releases/$MODULE_NAME"
 zip -r "../$ARCHIVE" "fomod" "$MODULE_NAME"
 cd ../..
 
-#rm -rf "$PACKAGE"
+rm -rf "$PACKAGE"
