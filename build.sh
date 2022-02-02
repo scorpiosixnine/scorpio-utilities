@@ -73,7 +73,10 @@ fi
 cp "$SOURCE/"*.psc "$DATA/Source/Scripts/"
 
 # Copy other content info Skyrim's data folder
-cp "$CONTENT"/* "$DATA/"
+if [[ -e "$CONTENT" ]]
+then
+  cp "$CONTENT"/* "$DATA/"
+fi
 
 # Copy compiled output into Skyrim Scripts folders
 echo "Copying Output"
