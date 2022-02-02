@@ -30,23 +30,30 @@ mkdir -p "$OUTPUT"
 # Copy source into temporary build location
 echo "Copying source"
 cp Source/Scripts/* "$SOURCE/"
+cp Scripts/Source/* "$SOURCE/"
 cp ${MODULE_NAME}.flg "$SOURCE"
 
 # Copy Version info and utilities into the main Quest script
 echo "Updating Quest Script"
 QUEST="$SOURCE/${MODULE_NAME}Quest.psc"
-printf "\n\n; Version info (automatically exported).\n" >> "$QUEST"
-printf "String property pName = \"$MODULE_NAME\" AutoReadOnly\n" >> "$QUEST"
-printf "int property pMajorVersion = $MAJOR AutoReadOnly\n" >> "$QUEST"
-printf "int property pMinorVersion = $MINOR AutoReadOnly\n" >> "$QUEST"
-printf "int property pPatchVersion = $PATCH AutoReadOnly\n" >> "$QUEST"
-printf "int property pBuildNumber = $BUILD_NO AutoReadOnly\n" >> "$QUEST"
-cat "scorpio-utilities/QuestUtilities.psc" >> "$QUEST"
+if [[ -e "$QUEST" ]]
+then
+  printf "\n\n; Version info (automatically exported).\n" >> "$QUEST"
+  printf "String property pName = \"$MODULE_NAME\" AutoReadOnly\n" >> "$QUEST"
+  printf "int property pMajorVersion = $MAJOR AutoReadOnly\n" >> "$QUEST"
+  printf "int property pMinorVersion = $MINOR AutoReadOnly\n" >> "$QUEST"
+  printf "int property pPatchVersion = $PATCH AutoReadOnly\n" >> "$QUEST"
+  printf "int property pBuildNumber = $BUILD_NO AutoReadOnly\n" >> "$QUEST"
+  cat "scorpio-utilities/QuestUtilities.psc" >> "$QUEST"
+fi
 
 # Copy utilities into the main Config script
 echo "Updating Config Script"
 CONFIG="$SOURCE/${MODULE_NAME}Config.psc"
-cat "scorpio-utilities/ConfigUtilities.psc" >> "$CONFIG"
+if [[ -e "$CONFIG" ]]
+then
+  cat "scorpio-utilities/ConfigUtilities.psc" >> "$CONFIG"
+fi
 
 # Compile
 echo "Compiling $SOURCE to $OUTPUT"
