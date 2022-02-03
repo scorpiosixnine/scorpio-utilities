@@ -75,7 +75,7 @@ cp "$SOURCE/"*.psc "$DATA/Source/Scripts/"
 # Copy other content info Skyrim's data folder
 if [[ -e "$CONTENT" ]]
 then
-  cp "$CONTENT"/* "$DATA/"
+  rsync -a "$CONTENT"/ "$DATA"
 fi
 
 # Copy compiled output into Skyrim Scripts folders
