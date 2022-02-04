@@ -16,15 +16,14 @@ fi
 DATA="$SKYRIM_HOME/Data"
 
 COMPILER="$DATA/../Papyrus Compiler/PapyrusCompiler.exe"
-VORTEX="/mnt/c/Users/Sam Deane/AppData/Roaming/Vortex"
+VORTEX="/mnt/c/Users/$USER/AppData/Roaming/Vortex"
 BUILD=".build"
 SOURCE="$BUILD/Source"
 CONTENT="Content"
-DEPENDENCIES="$BUILD/Dependencies"
 OUTPUT="$BUILD/Output"
 
+rm -rf "$BUILD"
 mkdir -p "$SOURCE"
-mkdir -p "$DEPENDENCIES"
 mkdir -p "$OUTPUT"
 
 # Copy source into temporary build location
