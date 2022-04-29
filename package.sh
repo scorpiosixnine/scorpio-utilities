@@ -18,7 +18,7 @@ cp "$MODULE_NAME.esp" "$MOD"
 cp "$SOURCE/"*.psc "$CONTENT/Source/Scripts/"
 
 # Copy other content
-cp "$CONTENT"/* "$MOD/"
+cp -r "$CONTENT"/* "$MOD/"
 
 # Copy compiled scripts
 cp "$OUTPUT/"*.pex "$MOD/Scripts/"
