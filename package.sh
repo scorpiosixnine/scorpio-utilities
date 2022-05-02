@@ -9,13 +9,14 @@ PACKAGE="Releases/$MODULE_NAME"
 MOD="$PACKAGE/$MODULE_NAME"
 ARCHIVE="$NAME.zip"
 
+mkdir -p "$MOD/Scripts"
 mkdir -p "$MOD/Source/Scripts"
 
 # Copy the esp 
 cp "$MODULE_NAME.esp" "$MOD"
 
 # Copy expanded source
-cp "$SOURCE/"*.psc "$CONTENT/Source/Scripts/"
+cp "$SOURCE/"*.psc "$MOD/Source/Scripts/"
 
 # Copy other content
 cp -r "$CONTENT"/* "$MOD/"
